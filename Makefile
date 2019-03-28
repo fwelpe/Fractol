@@ -3,26 +3,34 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
+#    By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/03/27 16:26:04 by cdenys-a         ###   ########.fr        #
+#    Updated: 2019/03/28 14:42:21 by fwlpe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
+OS = $(shell uname)
 CC = gcc
 LFT = libft/libft.a
-LMLX = minilibx_macos/libmlx.a
-SRCS = 
+SRCS = main.c
 OBJ_DIR = objects/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 FLAGS = -Wall -Wextra -Werror -g
 
+ifeq ($(OS), Linux)
+	LMLX_FLAGS = -lXext -lX11 -lm
+	LMLX = minilibx/libmlx_linux.a
+else
+	LMLX_FLAGS = -framework OpenGL -framework AppKit
+	LMLX = minilibx/libmlx_macos.a
+endif
+
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS) $(LFT) $(LMLX)
-	$(CC) $(OBJS) $(LFT) $(LMLX) -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): $(OBJ_DIR) $(OBJS) $(LFT)
+	$(CC) $(OBJS) $(LFT) $(LMLX) $(LMLX_FLAGS) -o $(NAME)
 
 $(OBJ_DIR):
 	mkdir $@
@@ -33,17 +41,12 @@ $(OBJ_DIR)%.o: %.c
 $(LFT):
 	make -C libft/
 
-$(LMLX):
-	make -C minilibx_macos/
-
 clean:
 	make -C libft/ clean
-	make -C minilibx_macos/ clean
 	rm -f $(OBJS)
 
 fclean:
 	make -C libft/ fclean
-	make -C minilibx_macos/ clean
 	rm -rf $(OBJ_DIR)
 	rm -f $(NAME)
 
