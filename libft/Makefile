@@ -6,7 +6,7 @@
 #    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/23 13:53:44 by cdenys-a          #+#    #+#              #
-#    Updated: 2019/03/27 16:45:53 by cdenys-a         ###   ########.fr        #
+#    Updated: 2019/03/27 16:56:46 by cdenys-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
+	rm -rf $(OBJ_DIR)
 	rm -f $(NAME)
 
 re: fclean all
