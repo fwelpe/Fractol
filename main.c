@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:11:04 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/29 13:58:13 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/29 16:23:47 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,14 @@ int	main(int ac, char **av)
 	// printf("Hello World!\n");
 	s.mlx_ptr = mlx_init();
 	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, "Whooy");
+	if (!s_init(&s))
+		return (1);
 	field_iter(&s);
+	mlx_key_hook(s.win_ptr, deal_key, &s);
+	mlx_hook(s.win_ptr, 17, 0, red_button, NULL);
+	// mlx_hook(st.win_ptr, 4, 0, mouse_press, (void *)&s);
+	// mlx_hook(st.win_ptr, 5, 0, mouse_release, (void *)&s);
+	// mlx_hook(st.win_ptr, 6, 0, mouse_move, (void *)&s);
 	mlx_loop(s.mlx_ptr);
 	return (0);
 }
