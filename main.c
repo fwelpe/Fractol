@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:11:04 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/28 21:09:44 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/03/29 13:58:13 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_white(float r, float im, float r_start, float im_start, int depth)
 	return (is_white(r_new, im_new, r_start, im_start, --depth));
 }
 
-void	field_iter(t_mlx *mlx)
+void	field_iter(t_fctl *s)
 {
 	int i;
 	int j;
@@ -40,7 +40,7 @@ void	field_iter(t_mlx *mlx)
 		while (++j < H)
 		{
 			if (is_white(0, 0, (float)i / scale - W / scale / 2, (float)j / scale - H / scale / 2, 255))
-				mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, i, j, 0xF5DEB3);
+				mlx_pixel_put(s->mlx_ptr, s->win_ptr, i, j, 0xF5DEB3);
 		}
 	}
 }
@@ -49,12 +49,12 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
-	t_mlx mlx;
+	t_fctl	s;
 
 	// printf("Hello World!\n");
-	mlx.mlx_ptr = mlx_init();
-	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, W, H, "Whooy");
-	field_iter(&mlx);
-	mlx_loop(mlx.mlx_ptr);
+	s.mlx_ptr = mlx_init();
+	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, "Whooy");
+	field_iter(&s);
+	mlx_loop(s.mlx_ptr);
 	return (0);
 }

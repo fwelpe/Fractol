@@ -3,4 +3,5 @@ temp/
 objects
 *.o
 fractol
-
+libft/libft.a
+minilibx_macos/libmlx.a
