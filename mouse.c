@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:05:19 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/30 15:51:11 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 16:17:52 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		mouse_press(int button, int x, int y, t_fctl *s)
 	(void)x;
 	if (button == 1 && y >= 0)
 		s->mouse->button = 1;
-	if (button == PLUS || button == MINUS)
+	if ((button == PLUS || button == MINUS) && y >= 0)
 		zoom(button, s);
 	return (0);
 }

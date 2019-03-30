@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:11:04 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/30 16:10:14 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 16:16:51 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	field_iter(t_fctl *s)
 		j = -1;
 		while (++j < H)
 		{
-			if (is_white(0, 0, (float)i / s->cam.scale - W / s->cam.scale / 2, (float)j / s->cam.scale - H / s->cam.scale / 2, 255))
+			if (is_white(0, 0, (float)i / s->cam.scale - W / s->cam.scale / 2, H / s->cam.scale / 2 - (float)j / s->cam.scale, 255))
 				image_set_pixel(s->image, i, j, 0xF5DEB3);
 		}
 	}
@@ -50,7 +50,7 @@ int	main(int ac, char **av)
 	t_fctl	s;
 
 	s.mlx_ptr = mlx_init();
-	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, "Whooy");
+	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, "w!h0oy");
 	if (!s_init(&s))
 		return (1);
 	draw(&s);
