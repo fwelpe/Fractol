@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 15:07:29 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/29 16:10:22 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 12:41:09 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_image	*del_image(t_fctl *s, t_image *img)
 	{
 		if (img->image_cont != NULL)
 			mlx_destroy_image(s->mlx_ptr, img->image_cont);
-		ft_memdel(&img);
+		ft_memdel((void **)&img);
 	}
 	return (NULL);
 }
@@ -48,4 +48,10 @@ t_image	*new_image(t_fctl *s)
 	img->adr = mlx_get_data_addr(img->image_cont, &img->b_p_pix, &n, &n);
 	img->b_p_pix /= 8;
 	return (img);
+}
+
+void	draw(t_fctl *s)
+{
+	clear_image(s->image);
+	field_iter(s);
 }

@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:11:04 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/29 16:23:47 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 12:50:09 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ void	field_iter(t_fctl *s)
 	int i;
 	int j;
 
-	float scale = H / 5;
 	i = -1;
 	while (++i < W)
 	{
 		j = -1;
 		while (++j < H)
 		{
-			if (is_white(0, 0, (float)i / scale - W / scale / 2, (float)j / scale - H / scale / 2, 255))
+			if (is_white(0, 0, (float)(i + s->cam.x_shift) / s->cam.scale - W / s->cam.scale / 2, (float)(j +s->cam.y_shift) / s->cam.scale - H / s->cam.scale / 2, 255))
 				mlx_pixel_put(s->mlx_ptr, s->win_ptr, i, j, 0xF5DEB3);
 		}
 	}
@@ -56,12 +55,12 @@ int	main(int ac, char **av)
 	s.win_ptr = mlx_new_window(s.mlx_ptr, W, H, "Whooy");
 	if (!s_init(&s))
 		return (1);
-	field_iter(&s);
+	//field_iter(&s);
 	mlx_key_hook(s.win_ptr, deal_key, &s);
 	mlx_hook(s.win_ptr, 17, 0, red_button, NULL);
-	// mlx_hook(st.win_ptr, 4, 0, mouse_press, (void *)&s);
-	// mlx_hook(st.win_ptr, 5, 0, mouse_release, (void *)&s);
-	// mlx_hook(st.win_ptr, 6, 0, mouse_move, (void *)&s);
+	mlx_hook(s.win_ptr, 4, 0, mouse_press, (void *)&s);
+	mlx_hook(s.win_ptr, 5, 0, mouse_release, (void *)&s);
+	mlx_hook(s.win_ptr, 6, 0, mouse_move, (void *)&s);
 	mlx_loop(s.mlx_ptr);
 	return (0);
 }

@@ -6,25 +6,20 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:05:19 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/29 16:42:33 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 12:46:19 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// void	zoom_fdf(int key, t_fdf *st)
-// {
-// 	float	delta;
-
-// 	delta = (100 / sqrt(pow(st->map->height, 2) + pow(st->map->width, 2)));
-// 	if (key == PLUS)
-// 		st->cam->scale += delta;
-// 	if (key == MINUS && st->cam->scale > delta)
-// 		st->cam->scale -= delta;
-// 	st->cam->zoom = 1;
-// 	copy_points(st->map);
-// 	draw(st);
-// }
+void	zoom(int key, t_fctl *s)
+{
+	if (key == PLUS)
+		s->cam.scale /= 2;
+	if (key == MINUS)
+		s->cam.scale *= 2;
+	draw(s);
+}
 
 int		init_mouse(t_fctl *s)
 {
@@ -42,8 +37,8 @@ int		mouse_press(int button, int x, int y, t_fctl *s)
 	(void)x;
 	if (button == 1 && y >= 0)
 		s->mouse->button = 1;
-	// if (button == PLUS || button == MINUS)
-	// 	zoom_fdf(button, st);
+	if (button == PLUS || button == MINUS)
+		zoom(button, s);
 	return (0);
 }
 

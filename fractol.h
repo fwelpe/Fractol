@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/29 16:15:56 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 12:48:33 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define H 1000
 # define ESC 53
 # define SPACE 49
+# define PLUS 4
+# define MINUS 5
 
 # include <math.h>
 # include "libft/libft.h"
@@ -38,13 +40,21 @@ typedef struct		s_image
 	int				b_p_pix;
 }					t_image;
 
+typedef struct	s_cam
+{
+	float	x_shift;
+	float	y_shift;
+	float	scale;
+}				t_cam;
+
 typedef struct	s_fctl
 {
-		void	*mlx_ptr;
-		void	*win_ptr;
-		float	scale;
-		t_image	*image;
-		t_mouse	*mouse;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	float	scale;
+	t_image	*image;
+	t_mouse	*mouse;
+	t_cam	cam;
 }				t_fctl;
 
 int		red_button(void *param);
@@ -55,5 +65,11 @@ t_image	*del_image(t_fctl *s, t_image *img);
 t_image	*new_image(t_fctl *s);
 int		s_init(t_fctl *s);
 int		init_mouse(t_fctl *s);
+void	field_iter(t_fctl *s);
+void	draw(t_fctl *s);
+int		mouse_press(int button, int x, int y, t_fctl *s);
+int		mouse_release(int button, int x, int y, t_fctl *s);
+int		mouse_move(int x, int y, t_fctl *s);
+
 
 #endif
