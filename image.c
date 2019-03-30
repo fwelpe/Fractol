@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 15:07:29 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/30 12:41:09 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 15:49:20 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,6 @@ void	draw(t_fctl *s)
 {
 	clear_image(s->image);
 	field_iter(s);
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->image->image_cont,
+	0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:05:19 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/30 12:46:19 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 15:51:11 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	zoom(int key, t_fctl *s)
 {
 	if (key == PLUS)
-		s->cam.scale /= 2;
-	if (key == MINUS)
 		s->cam.scale *= 2;
+	if (key == MINUS)
+		s->cam.scale /= 2;
 	draw(s);
 }
 

@@ -6,18 +6,11 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/29 14:33:00 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/30 15:55:10 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-// void	handle_space(t_fctl *s)
-// {
-// 	zero_cam(st);
-// 	copy_points(st->map);
-// 	draw(st);
-// }
 
 int		deal_key(int key, t_fctl *s)
 {
@@ -27,7 +20,8 @@ int		deal_key(int key, t_fctl *s)
 
 	if (key == SPACE)
 	{
-		// handle_space(s);
+		zero_cam(s);
+		draw(s);
 	}
 	return (0);
 }
