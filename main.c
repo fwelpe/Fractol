@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:11:04 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/31 19:57:02 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/03/31 20:47:07 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	field_iter(t_fctl *s)
 		j = -1;
 		while (++j < H)
 		{
-			if (is_white(0, 0, (float)i / s->cam.scale - W / s->cam.scale / 2, H / s->cam.scale / 2 - (float)j / s->cam.scale, 255))
+			if (is_white(0, 0, (float)i / s->cam.scale + s->cam.re_add - (W / 2) / s->cam.scale, -(float)j / s->cam.scale + s->cam.im_add + (W / 2) / s->cam.scale, 255))
 				image_set_pixel(s, i, j, 0xF5DEB3);
 		}
 	}

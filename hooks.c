@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/31 19:56:51 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/03/31 20:05:00 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		mouse(int button, int x, int y, t_fctl *s)
 {
 	(void)x;
 	if ((button == PLUS || button == MINUS) && y >= 0)
-		zoom(button, s);
+		zoom(button, s, x, y);
 	return (0);
 }
 
