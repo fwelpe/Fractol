@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:11:04 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/01 19:09:20 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/01 22:56:21 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int		start(t_fctl *s)
 	if (!new_image(s))
 		return (0);
 	s->pxs = W * H;
-	MALLCHECK(s->re = (double *)malloc(sizeof(double) * s->pxs));
-	MALLCHECK(s->im = (double *)malloc(sizeof(double) * s->pxs));
-	field_iter(s);
+	MALLCHECK((s->re = (double *)malloc(sizeof(double) * s->pxs)));
+	MALLCHECK((s->im = (double *)malloc(sizeof(double) * s->pxs)));
 	zero_draw(s);
+	field_iter(s);
 	return (1);
 }
 
@@ -103,13 +103,13 @@ int		main(int ac, char **av)
     cl_mem b_mem_obj = clCreateBuffer(context, CL_MEM_READ_ONLY,
             s.pxs * sizeof(double), NULL, &ret);
     cl_mem c_mem_obj = clCreateBuffer(context, CL_MEM_WRITE_ONLY, 
-            s.pxs * sizeof(int), NULL, &ret);
+            s.pxs * 16, NULL, &ret);
 
     // Copy the lists A and B to their respective memory buffers
     ret = clEnqueueWriteBuffer(command_queue, a_mem_obj, CL_TRUE, 0,
-            s.pxs * sizeof(double), A, 0, NULL, NULL);
+            s.pxs * sizeof(double), s.re, 0, NULL, NULL);
     ret = clEnqueueWriteBuffer(command_queue, b_mem_obj, CL_TRUE, 0, 
-            s.pxs * sizeof(double), B, 0, NULL, NULL);
+            s.pxs * sizeof(double), s.im, 0, NULL, NULL);
 
     // Create a program from the kernel source
     cl_program program = clCreateProgramWithSource(context, 1, 
@@ -133,13 +133,13 @@ int		main(int ac, char **av)
             &global_item_size, &local_item_size, 0, NULL, NULL);
 
     // Read the memory buffer C on the device to the local variable C
-    int *C = (int*)malloc(sizeof(int)*LIST_SIZE);
+    // int *C = (int*)malloc(sizeof(int)*LIST_SIZE);
     ret = clEnqueueReadBuffer(command_queue, c_mem_obj, CL_TRUE, 0, 
-            LIST_SIZE * sizeof(int), C, 0, NULL, NULL);
+            s.pxs *16, s.adr, 0, NULL, NULL);
 
     // Display the result to the screen
-    for(i = 0; i < LIST_SIZE; i++)
-        printf("%d + %d = %d\n", A[i], B[i], C[i]);
+    // for(i = 0; i < LIST_SIZE; i++)
+    //     printf("%d + %d = %d\n", A[i], B[i], C[i]);
 
     // Clean up
     ret = clFlush(command_queue);
@@ -151,10 +151,11 @@ int		main(int ac, char **av)
     ret = clReleaseMemObject(c_mem_obj);
     ret = clReleaseCommandQueue(command_queue);
     ret = clReleaseContext(context);
-    free(A);
-    free(B);
-    free(C);
-
+    // free(A);
+    // free(B);
+    // free(C);
+	
+	draw(&s);
 	mlx_key_hook(s.win_ptr, deal_key, &s);
 	mlx_mouse_hook(s.win_ptr, mouse, (void *)&s);
 	mlx_hook(s.win_ptr, 17, 0, red_button, NULL);

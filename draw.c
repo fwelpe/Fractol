@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:04:31 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/01 19:09:13 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/01 22:57:27 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	draw(t_fctl *s)
 {
-	clear_image(s);
-	field_iter(s);
+	// clear_image(s);
+	// field_iter(s);
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->image_cont, 0, 0);
 }
 

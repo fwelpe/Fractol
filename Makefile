@@ -6,7 +6,7 @@
 #    By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/03/31 19:29:04 by fwlpe            ###   ########.fr        #
+#    Updated: 2019/04/01 22:43:54 by fwlpe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LFT = $(addprefix $(LFT_DIR), libft.a)
 SRCS = main.c hooks.c image.c draw.c
 OBJ_DIR = objects/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -g
 
 ifeq ($(OS), Linux)
 	LMLX_FLAGS = -lXext -lX11 -lm
@@ -35,7 +35,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(LFT) $(LMLX)
-	$(CC) $(OBJS) $(LFT) $(LMLX) $(LMLX_FLAGS) -o $(NAME) -I$(DEF_DIR)
+	$(CC) $(OBJS) $(LFT) $(LMLX) $(LMLX_FLAGS) -o $(NAME) -I$(DEF_DIR) -l OpenCL
 
 $(OBJ_DIR):
 	mkdir $@

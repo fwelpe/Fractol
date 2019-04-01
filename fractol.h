@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/01 19:01:57 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/01 22:43:13 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define FRACTOL_H
 
 # include <math.h>
-# include <OpenCL/opencl.h>
+# include <CL/cl.h>
+# include <stdio.h>
 # include "defines.h"
 # include "libft/libft.h"
 # include "minilibx_macos/mlx.h"
