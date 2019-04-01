@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:04:31 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/31 20:48:11 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/01 19:09:13 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ void	zero_draw(t_fctl *s)
 	s->cam.scale = H / 5;
 	s->cam.re_add = 0;
 	s->cam.im_add = 0;
-	draw(s);
+	// draw(s);
 }
