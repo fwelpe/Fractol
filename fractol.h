@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/01 22:43:13 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/02 19:06:06 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 # define FRACTOL_H
 
 # include <math.h>
-# include <CL/cl.h>
 # include <stdio.h>
 # include "defines.h"
 # include "libft/libft.h"
 # include "minilibx_macos/mlx.h"
+# ifdef __APPLE__
+# include <OpenCL/opencl.h>
+# else
+# include <CL/cl.h>
+# endif
 
 # define MAX_SOURCE_SIZE (0x100000)
 # define MALLCHECK(x) if (!x) return (0)
@@ -30,18 +34,36 @@ typedef struct	s_cam
 	double	scale;
 }				t_cam;
 
+typedef struct	s_cl
+{
+	FILE				*fp;
+	char				*source_str;
+	size_t				source_size;
+	cl_platform_id		platform_id;
+    cl_device_id		device_id;   
+    cl_uint				ret_num_devices;
+    cl_uint				ret_num_platforms;
+    cl_int				ret;
+	cl_context			context;
+	cl_command_queue	command_queue;
+	cl_mem				a_mem_obj;
+	cl_mem				b_mem_obj;
+	cl_mem				c_mem_obj;
+}				t_cl;
+
 typedef struct	s_fctl
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	double	scale;
 	void	*image_cont;
-	char	*adr;
+	int		*adr;
 	int		b_p_pix;
 	double	*re;
 	double	*im;
 	t_cam	cam;
 	int		pxs;
+	t_cl	cl;
 }				t_fctl;
 
 int		red_button(void *param);
@@ -52,7 +74,7 @@ int		new_image(t_fctl *s);
 void	field_iter(t_fctl *s);
 void	draw(t_fctl *s);
 int		mouse(int button, int x, int y, t_fctl *s);
-void	zero_draw(t_fctl *s);
+void	zero_cam(t_fctl *s);
 void	zoom(int key, t_fctl *s, int x, int y);
 
 #endif

@@ -1,26 +1,26 @@
-__kernel void mandelbrot(__global double *A, __global double *B, __global char *C)
+__kernel void mandelbrot(__global double *A, __global double *B, __global int *C)
 {
     int		q;
 	double	j;
-	double	im_start;
-	double	re_start;
-    // Get the index of the current element
+	double	im;
+	double	re;
+    // // Get the index of the current element
     int i = get_global_id(0);
-	im_start = A[i];
-	re_start = B[i];
+	im = 0;
+	re = 0;
 	q = -1;
 	while (++q < 255)
 	{
-		j = A[i];
-		A[i] = A[i] * A[i] - B[i] * B[i] + re_start;
-		B[i] = 2 * j * B[i] + im_start;
-		if ((A[i] * A[i] + B[i] * B[i]) > 4)
+		j = re * re - im * im + A[i];
+		im = 2 * re * im + B[i];
+		re = j;
+		if ((re * re + im * im) > 4)
 		{
-			*(int *)(C + ((i * 4)) = 0x000000;
+			C[i] = 0x202020;
 			return ;
 		}
 	}
-	*(int *)(C + ((i * 4)) = 0xFFFFFF;
+	C[i] = 0xF5DEB3;
 
     // Do the operation
     // C[i] = A[i] + B[i];

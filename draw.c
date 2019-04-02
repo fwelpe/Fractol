@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:04:31 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/01 22:57:27 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/02 17:38:42 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	zoom(int key, t_fctl *s, int x, int y)
 	draw(s);
 }
 
-void	zero_draw(t_fctl *s)
+void	zero_cam(t_fctl *s)
 {
 	s->cam.scale = H / 5;
 	s->cam.re_add = 0;

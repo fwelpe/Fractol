@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:11:04 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/01 22:56:21 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/02 19:06:33 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		is_white(float re, float im, float re_start, float im_start, int depth)
+int		is_white(double re, double im, double re_start, double im_start, int depth)
 {
-	float	re_new;
-	float	im_new;
+	double	re_new;
+	double	im_new;
 	
 	if ((re * re + im * im) > 4)
 		return (0);
@@ -24,6 +24,22 @@ int		is_white(float re, float im, float re_start, float im_start, int depth)
 	re_new = re * re - im * im + re_start;
 	im_new = 2 * re * im + im_start;
 	return (is_white(re_new, im_new, re_start, im_start, --depth));
+}
+
+
+void	tempfn(t_fctl *s)
+{
+	
+    int i;
+
+	i = -1;
+	while (++i < s->pxs)
+	{
+		if (is_white(0, 0, s->re[i], s->im[i], 255))
+			s->adr[i] = 0xFFFFFF;
+		else
+			s->adr[i] = 0x000000;
+	}
 }
 
 void	field_iter(t_fctl *s)
@@ -39,8 +55,8 @@ void	field_iter(t_fctl *s)
 		{
 			// if (is_white(0, 0, (float)i / s->cam.scale + s->cam.re_add - (W / 2) / s->cam.scale, -(float)j / s->cam.scale + s->cam.im_add + (H / 2) / s->cam.scale, 255))
 			// 	image_set_pixel(s, i, j, 0xF5DEB3);
-			s->re[i + H * j] = (i - W / 2) / s->cam.scale + s->cam.re_add;
-			s->im[i + H * j] = (H / 2 - j) / s->cam.scale + s->cam.im_add;
+			s->re[i + W * j] = (i - W / 2) / s->cam.scale + s->cam.re_add;
+			s->im[i + W * j] = (H / 2 - j) / s->cam.scale + s->cam.im_add;
 		}
 	}
 }
@@ -54,7 +70,7 @@ int		start(t_fctl *s)
 	s->pxs = W * H;
 	MALLCHECK((s->re = (double *)malloc(sizeof(double) * s->pxs)));
 	MALLCHECK((s->im = (double *)malloc(sizeof(double) * s->pxs)));
-	zero_draw(s);
+	zero_cam(s);
 	field_iter(s);
 	return (1);
 }
@@ -88,7 +104,7 @@ int		main(int ac, char **av)
     cl_uint ret_num_devices;
     cl_uint ret_num_platforms;
     cl_int ret = clGetPlatformIDs(1, &platform_id, &ret_num_platforms);
-    ret = clGetDeviceIDs( platform_id, CL_DEVICE_TYPE_ALL, 1, 
+    ret = clGetDeviceIDs( platform_id, CL_DEVICE_TYPE_GPU, 1, 
             &device_id, &ret_num_devices);
 
     // Create an OpenCL context
@@ -103,7 +119,7 @@ int		main(int ac, char **av)
     cl_mem b_mem_obj = clCreateBuffer(context, CL_MEM_READ_ONLY,
             s.pxs * sizeof(double), NULL, &ret);
     cl_mem c_mem_obj = clCreateBuffer(context, CL_MEM_WRITE_ONLY, 
-            s.pxs * 16, NULL, &ret);
+            s.pxs * sizeof(int), NULL, &ret);
 
     // Copy the lists A and B to their respective memory buffers
     ret = clEnqueueWriteBuffer(command_queue, a_mem_obj, CL_TRUE, 0,
@@ -119,7 +135,7 @@ int		main(int ac, char **av)
     ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 
     // Create the OpenCL kernel
-    cl_kernel kernel = clCreateKernel(program, "vector_add", &ret);
+    cl_kernel kernel = clCreateKernel(program, "mandelbrot", &ret);
 
     // Set the arguments of the kernel
     ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void *)&a_mem_obj);
@@ -133,13 +149,12 @@ int		main(int ac, char **av)
             &global_item_size, &local_item_size, 0, NULL, NULL);
 
     // Read the memory buffer C on the device to the local variable C
-    // int *C = (int*)malloc(sizeof(int)*LIST_SIZE);
     ret = clEnqueueReadBuffer(command_queue, c_mem_obj, CL_TRUE, 0, 
-            s.pxs *16, s.adr, 0, NULL, NULL);
+            s.pxs * sizeof(int), (void *)s.adr, 0, NULL, NULL);
 
-    // Display the result to the screen
-    // for(i = 0; i < LIST_SIZE; i++)
-    //     printf("%d + %d = %d\n", A[i], B[i], C[i]);
+	// for (int j = 0; j < s.pxs; j++)
+	// 	s.adr[j] = 0xFFFFFF;
+	// tempfn(&s);
 
     // Clean up
     ret = clFlush(command_queue);
@@ -151,9 +166,6 @@ int		main(int ac, char **av)
     ret = clReleaseMemObject(c_mem_obj);
     ret = clReleaseCommandQueue(command_queue);
     ret = clReleaseContext(context);
-    // free(A);
-    // free(B);
-    // free(C);
 	
 	draw(&s);
 	mlx_key_hook(s.win_ptr, deal_key, &s);

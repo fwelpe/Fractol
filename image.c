@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 15:07:29 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/31 19:34:08 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/02 15:17:19 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		new_image(t_fctl *s)
 	n = 0;
 	if (!(s->image_cont = mlx_new_image(s->mlx_ptr, W, H)))
 		return (0);
-	s->adr = mlx_get_data_addr(s->image_cont, &(s->b_p_pix), &n, &n);
+	s->adr = (int *)mlx_get_data_addr(s->image_cont, &(s->b_p_pix), &n, &n);
 	s->b_p_pix /= 8;
 	return (1);
 }
