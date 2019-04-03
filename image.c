@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 15:07:29 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/02 15:17:19 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/03 17:45:25 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	image_set_pixel(t_fctl *s, int x, int y, int color)
 
 void	clear_image(t_fctl *s)
 {
-	ft_bzero(s->adr, W * H * s->b_p_pix);
+	ft_bzero(s->adr, s->pxs * s->b_p_pix);
 }
 
 int		new_image(t_fctl *s)

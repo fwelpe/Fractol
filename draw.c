@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 19:04:31 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/03 14:16:51 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/03 18:40:15 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	zoom(int key, t_fctl *s, int x, int y)
 		s->cam.scale *= 2;
 	if (key == MINUS)
 		s->cam.scale /= 2;
-	draw(s);
 }
 
 void	zero_cam(t_fctl *s)
@@ -56,4 +55,5 @@ void	zero_cam(t_fctl *s)
 	s->cam.scale = H / 5;
 	s->cam.re_add = 0;
 	s->cam.im_add = 0;
+	s->cl_iters = 255;
 }

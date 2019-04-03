@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/03 14:01:40 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:01:08 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_cl
 	cl_mem				a_mem_obj;
 	cl_mem				b_mem_obj;
 	cl_mem				c_mem_obj;
+	cl_mem				d_mem_obj;
 	cl_program			program;
 	cl_kernel			kernel;
 	size_t				global_item_size;
@@ -67,6 +68,7 @@ typedef struct	s_fctl
 	double		*im;
 	t_cam		cam;
 	int			pxs;
+	int			cl_iters;
 	t_cl		cl;
 }				t_fctl;
 
@@ -82,6 +84,6 @@ void			zero_cam(t_fctl *s);
 void			zoom(int key, t_fctl *s, int x, int y);
 void			go_cl(t_fctl *s);
 void			go_cl_pt2(t_fctl *s, t_cl *l);
-void			cleanup(t_cl *l);
+void			go_cl_pt3(t_fctl *s, t_cl *l);
 
 #endif

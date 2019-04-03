@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/03 14:00:58 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:06:42 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,14 @@ void	go_cl_pt2(t_fctl *s, t_cl *l)
 {
 	l->c_mem_obj = clCreateBuffer(l->context, CL_MEM_WRITE_ONLY,
 			s->pxs * sizeof(int), NULL, &l->ret);
+	l->d_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
+			sizeof(int), NULL, &l->ret);
 	l->ret = clEnqueueWriteBuffer(l->command_queue, l->a_mem_obj, CL_TRUE, 0,
 			s->pxs * sizeof(double), s->re, 0, NULL, NULL);
 	l->ret = clEnqueueWriteBuffer(l->command_queue, l->b_mem_obj, CL_TRUE, 0,
 			s->pxs * sizeof(double), s->im, 0, NULL, NULL);
+	l->ret = clEnqueueWriteBuffer(l->command_queue, l->d_mem_obj, CL_TRUE, 0,
+			sizeof(int), &s->cl_iters, 0, NULL, NULL);
 	l->program = clCreateProgramWithSource(l->context, 1, (const char **)
 			&l->source_str, (const size_t *)&l->source_size, &l->ret);
 	l->ret = clBuildProgram(l->program, 1, &l->device_id, NULL, NULL, NULL);
@@ -59,17 +63,19 @@ void	go_cl_pt2(t_fctl *s, t_cl *l)
 			(void *)&l->b_mem_obj);
 	l->ret = clSetKernelArg(l->kernel, 2, sizeof(cl_mem),
 			(void *)&l->c_mem_obj);
+	l->ret = clSetKernelArg(l->kernel, 3, sizeof(cl_mem),
+			(void *)&l->d_mem_obj);
 	l->global_item_size = s->pxs;
 	l->local_item_size = 64;
+	go_cl_pt3(s, l);
+}
+
+void	go_cl_pt3(t_fctl *s, t_cl *l)
+{
 	l->ret = clEnqueueNDRangeKernel(l->command_queue, l->kernel, 1, NULL,
 			&l->global_item_size, &l->local_item_size, 0, NULL, NULL);
 	l->ret = clEnqueueReadBuffer(l->command_queue, l->c_mem_obj, CL_TRUE, 0,
 			s->pxs * sizeof(int), (void *)s->adr, 0, NULL, NULL);
-	cleanup(l);
-}
-
-void	cleanup(t_cl *l)
-{
 	l->ret = clFlush(l->command_queue);
 	l->ret = clFinish(l->command_queue);
 	l->ret = clReleaseKernel(l->kernel);
