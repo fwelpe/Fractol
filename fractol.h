@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/02 19:06:06 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/03 14:01:40 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include "libft/libft.h"
 # include "minilibx_macos/mlx.h"
 # ifdef __APPLE__
-# include <OpenCL/opencl.h>
+#  include <OpenCL/opencl.h>
 # else
-# include <CL/cl.h>
+#  include <CL/cl.h>
 # endif
 
 # define MAX_SOURCE_SIZE (0x100000)
@@ -40,41 +40,48 @@ typedef struct	s_cl
 	char				*source_str;
 	size_t				source_size;
 	cl_platform_id		platform_id;
-    cl_device_id		device_id;   
-    cl_uint				ret_num_devices;
-    cl_uint				ret_num_platforms;
-    cl_int				ret;
+	cl_device_id		device_id;
+	cl_uint				ret_num_devices;
+	cl_uint				ret_num_platforms;
+	cl_int				ret;
 	cl_context			context;
 	cl_command_queue	command_queue;
 	cl_mem				a_mem_obj;
 	cl_mem				b_mem_obj;
 	cl_mem				c_mem_obj;
+	cl_program			program;
+	cl_kernel			kernel;
+	size_t				global_item_size;
+	size_t				local_item_size;
 }				t_cl;
 
 typedef struct	s_fctl
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	double	scale;
-	void	*image_cont;
-	int		*adr;
-	int		b_p_pix;
-	double	*re;
-	double	*im;
-	t_cam	cam;
-	int		pxs;
-	t_cl	cl;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	double		scale;
+	void		*image_cont;
+	int			*adr;
+	int			b_p_pix;
+	double		*re;
+	double		*im;
+	t_cam		cam;
+	int			pxs;
+	t_cl		cl;
 }				t_fctl;
 
-int		red_button(void *param);
-int		deal_key(int key, t_fctl *s);
-void	image_set_pixel(t_fctl *s, int x, int y, int color);
-void	clear_image(t_fctl *s);
-int		new_image(t_fctl *s);
-void	field_iter(t_fctl *s);
-void	draw(t_fctl *s);
-int		mouse(int button, int x, int y, t_fctl *s);
-void	zero_cam(t_fctl *s);
-void	zoom(int key, t_fctl *s, int x, int y);
+int				red_button(void *param);
+int				deal_key(int key, t_fctl *s);
+void			image_set_pixel(t_fctl *s, int x, int y, int color);
+void			clear_image(t_fctl *s);
+int				new_image(t_fctl *s);
+void			field_iter(t_fctl *s);
+void			draw(t_fctl *s);
+int				mouse(int button, int x, int y, t_fctl *s);
+void			zero_cam(t_fctl *s);
+void			zoom(int key, t_fctl *s, int x, int y);
+void			go_cl(t_fctl *s);
+void			go_cl_pt2(t_fctl *s, t_cl *l);
+void			cleanup(t_cl *l);
 
 #endif

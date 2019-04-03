@@ -6,7 +6,7 @@
 #    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/04/02 19:09:42 by cdenys-a         ###   ########.fr        #
+#    Updated: 2019/04/03 13:59:51 by cdenys-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OS = $(shell uname)
 CC = gcc
 LFT_DIR = libft/
 LFT = $(addprefix $(LFT_DIR), libft.a)
-SRCS = main.c hooks.c image.c draw.c prepares.c
+SRCS = main.c hooks.c image.c draw.c prepares.c opencl.c
 OBJ_DIR = objects/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 FLAGS = -Wall -Wextra -Werror -g
