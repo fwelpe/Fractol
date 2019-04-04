@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opencl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/03 16:06:42 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:27:29 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	go_cl_pt2(t_fctl *s, t_cl *l)
 	l->ret = clSetKernelArg(l->kernel, 3, sizeof(cl_mem),
 			(void *)&l->d_mem_obj);
 	l->global_item_size = s->pxs;
-	l->local_item_size = 64;
+	l->local_item_size = 1;
 	go_cl_pt3(s, l);
 }
 
@@ -75,7 +75,7 @@ void	go_cl_pt3(t_fctl *s, t_cl *l)
 	l->ret = clEnqueueNDRangeKernel(l->command_queue, l->kernel, 1, NULL,
 			&l->global_item_size, &l->local_item_size, 0, NULL, NULL);
 	l->ret = clEnqueueReadBuffer(l->command_queue, l->c_mem_obj, CL_TRUE, 0,
-			s->pxs * sizeof(int), (void *)s->adr, 0, NULL, NULL);
+			s->pxs * sizeof(int), s->adr, 0, NULL, NULL);
 	l->ret = clFlush(l->command_queue);
 	l->ret = clFinish(l->command_queue);
 	l->ret = clReleaseKernel(l->kernel);

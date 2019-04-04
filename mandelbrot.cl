@@ -19,7 +19,7 @@ __kernel void mandelbrot(__global double *A, __global double *B, __global int *C
 		{
 			// t = (q * 0xFFFFFF / *D);
 			// C[i] = t;
-			C[i] = q * q % 0xFFFFFF;
+			C[i] = q * q * q % 0xffffff;
 			return ;
 		}
 	}

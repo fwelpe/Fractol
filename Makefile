@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
+#    By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/04/03 14:18:54 by cdenys-a         ###   ########.fr        #
+#    Updated: 2019/04/04 22:31:12 by fwlpe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,30 +18,31 @@ LFT = $(addprefix $(LFT_DIR), libft.a)
 SRCS = main.c hooks.c image.c draw.c opencl.c
 OBJ_DIR = objects/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
-FLAGS = -Wall -Wextra -Werror -g
 
 ifeq ($(OS), Linux)
 	LMLX_FLAGS = -lXext -lX11 -lm
 	LMLX_DIR = /dev/null
-	LMLX = minilibx/libmlx_linux.a
-	ADD = defines/linux/ -l OpenCL
+	LMLX = minilibx/libmlx.a
+	FLAGS = -g -I defines/linux/ -I /opt/AMDAPPSDK-3.0/include/
+	OCL = /opt/AMDAPPSDK-3.0/lib/x86_64/sdk/libamdocl64.so
 else
 	LMLX_FLAGS = -framework OpenGL -framework AppKit
 	LMLX_DIR = minilibx_macos/
 	LMLX = $(addprefix $(LMLX_DIR), libmlx.a)
-	ADD = defines/mac/
+	FLAGS = -Wall -Wextra -Werror -g -I defines/mac/
+	OCL = -framework OpenCL
 endif
 
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(LFT) $(LMLX)
-	$(CC) $(OBJS) $(LFT) $(LMLX) $(LMLX_FLAGS) -o $(NAME) -I$(ADD) -framework OpenCL
+	$(CC) $(OBJS) $(LFT) $(LMLX) $(LMLX_FLAGS) $(OCL) $(FLAGS) -o $(NAME)
 
 $(OBJ_DIR):
 	mkdir $@
 
 $(OBJ_DIR)%.o: %.c
-	$(CC) $(FLAGS) -o $@ -c $^ -I$(ADD)
+	$(CC) $(FLAGS) -o $@ -c $^
 
 $(LFT):
 	make -C $(LFT_DIR)
