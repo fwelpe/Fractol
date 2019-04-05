@@ -4,7 +4,7 @@ __kernel void mandelbrot(__global double *A, __global double *B, __global int *C
 	double	j;
 	double	im;
 	double	re;
-	unsigned long long int t;
+	int		e;
 
     int i = get_global_id(0);
 	im = 0;
@@ -17,9 +17,14 @@ __kernel void mandelbrot(__global double *A, __global double *B, __global int *C
 		re = j;
 		if ((re * re + im * im) > 4)
 		{
-			// t = (q * 0xFFFFFF / *D);
-			// C[i] = t;
-			C[i] = q * q * q % 0xffffff;
+			e = -1;
+			C[i] = 0;
+			while (++e < 3)
+			{
+				C[i] += 0xff * q / *D;
+				if (e != 2)
+					C[i] = C[i] << 8;
+			}
 			return ;
 		}
 	}
