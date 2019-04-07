@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+         #
+#    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/04/04 22:31:12 by fwlpe            ###   ########.fr        #
+#    Updated: 2019/04/07 12:52:20 by cdenys-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OS = $(shell uname)
 CC = gcc
 LFT_DIR = libft/
 LFT = $(addprefix $(LFT_DIR), libft.a)
-SRCS = main.c hooks.c image.c draw.c opencl.c
+SRCS = main.c hooks.c image.c draw.c opencl.c start.c
 OBJ_DIR = objects/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 

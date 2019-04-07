@@ -3,24 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   opencl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/04 18:27:29 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/07 14:05:47 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	go_cl(t_fctl *s)
+void		opencl_error(void)
 {
-	t_cl *l;
+	ft_putendl_fd("OpenCL mysterious error! Just try again.", 2);
+	exit(1);
+}
+
+void		init_cl(t_fctl *s)
+{
+	t_cl	*l;
 
 	l = &s->cl;
 	l->fp = fopen("mandelbrot.cl", "r");
 	if (!l->fp)
 	{
-		ft_putendl_fd("Failed to load kernel.\n", 2);
+		ft_putendl_fd("Failed to load kernel.", 2);
 		exit(1);
 	}
 	l->source_str = (char*)malloc(MAX_SOURCE_SIZE);
@@ -34,15 +40,17 @@ void	go_cl(t_fctl *s)
 	l->context = clCreateContext(NULL, 1, &l->device_id, NULL, NULL, &l->ret);
 	l->command_queue = clCreateCommandQueue(l->context, l->device_id,
 			0, &l->ret);
+	if (l->ret != CL_SUCCESS)
+		opencl_error();
+	init_cl_pt2(s, l);
+}
+
+void		init_cl_pt2(t_fctl *s, t_cl *l)
+{
 	l->a_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
 			s->pxs * sizeof(double), NULL, &l->ret);
 	l->b_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
 			s->pxs * sizeof(double), NULL, &l->ret);
-	go_cl_pt2(s, l);
-}
-
-void	go_cl_pt2(t_fctl *s, t_cl *l)
-{
 	l->c_mem_obj = clCreateBuffer(l->context, CL_MEM_WRITE_ONLY,
 			s->pxs * sizeof(int), NULL, &l->ret);
 	l->d_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
@@ -57,6 +65,15 @@ void	go_cl_pt2(t_fctl *s, t_cl *l)
 			&l->source_str, (const size_t *)&l->source_size, &l->ret);
 	l->ret = clBuildProgram(l->program, 1, &l->device_id, NULL, NULL, NULL);
 	l->kernel = clCreateKernel(l->program, "mandelbrot", &l->ret);
+	if (l->ret != CL_SUCCESS)
+		opencl_error();
+}
+
+void		go_cl(t_fctl *s)
+{
+	t_cl	*l;
+
+	l = &s->cl;
 	l->ret = clSetKernelArg(l->kernel, 0, sizeof(cl_mem),
 			(void *)&l->a_mem_obj);
 	l->ret = clSetKernelArg(l->kernel, 1, sizeof(cl_mem),
@@ -67,11 +84,6 @@ void	go_cl_pt2(t_fctl *s, t_cl *l)
 			(void *)&l->d_mem_obj);
 	l->global_item_size = s->pxs;
 	l->local_item_size = 1;
-	go_cl_pt3(s, l);
-}
-
-void	go_cl_pt3(t_fctl *s, t_cl *l)
-{
 	l->ret = clEnqueueNDRangeKernel(l->command_queue, l->kernel, 1, NULL,
 			&l->global_item_size, &l->local_item_size, 0, NULL, NULL);
 	l->ret = clEnqueueReadBuffer(l->command_queue, l->c_mem_obj, CL_TRUE, 0,
@@ -85,4 +97,15 @@ void	go_cl_pt3(t_fctl *s, t_cl *l)
 	l->ret = clReleaseMemObject(l->c_mem_obj);
 	l->ret = clReleaseCommandQueue(l->command_queue);
 	l->ret = clReleaseContext(l->context);
+	if (l->ret != CL_SUCCESS)
+		opencl_error();
+}
+
+void		end_cl(t_fctl *s)
+{
+	t_cl	*l;
+
+	l = &s->cl;
+	if (l->ret != CL_SUCCESS)
+		opencl_error();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/04 22:19:57 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/07 14:04:45 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_fctl
 	int			pxs;
 	int			cl_iters;
 	t_cl		cl;
+	char		*f_name;
 }				t_fctl;
 
 int				red_button(void *param);
@@ -83,8 +84,13 @@ void			draw(t_fctl *s);
 int				mouse(int button, int x, int y, t_fctl *s);
 void			zero_cam(t_fctl *s);
 void			zoom(int key, t_fctl *s, int x, int y);
+void			init_cl(t_fctl *s);
+void			usage(void);
+char			*parse_name(char **av);
+int				start(t_fctl *s, int ac, char **av);
+void			init_cl(t_fctl *s);
+void			init_cl_pt2(t_fctl *s, t_cl *l);
 void			go_cl(t_fctl *s);
-void			go_cl_pt2(t_fctl *s, t_cl *l);
-void			go_cl_pt3(t_fctl *s, t_cl *l);
+void			end_cl(t_fctl *s);
 
 #endif
