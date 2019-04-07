@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/07 14:04:45 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/07 14:53:20 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int				start(t_fctl *s, int ac, char **av);
 void			init_cl(t_fctl *s);
 void			init_cl_pt2(t_fctl *s, t_cl *l);
 void			go_cl(t_fctl *s);
+void			go_cl_pt_2(t_fctl *s);
 void			end_cl(t_fctl *s);
 
 #endif
