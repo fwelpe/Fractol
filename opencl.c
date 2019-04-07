@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opencl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/07 14:52:53 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/07 23:36:07 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void		init_cl_pt2(t_fctl *s, t_cl *l)
 			s->pxs * sizeof(double), NULL, &l->ret);
 	l->c_mem_obj = clCreateBuffer(l->context, CL_MEM_WRITE_ONLY,
 			s->pxs * sizeof(int), NULL, &l->ret);
-	l->d_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
-			sizeof(int), NULL, &l->ret);
+	l->d_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_WRITE,
+			sizeof(int) * CLSTORE_SIZE, NULL, &l->ret);
 	if (l->ret != CL_SUCCESS)
 		opencl_error();
 }
@@ -69,13 +69,11 @@ void		go_cl(t_fctl *s)
 	l->ret = clEnqueueWriteBuffer(l->command_queue, l->b_mem_obj, CL_TRUE, 0,
 			s->pxs * sizeof(double), s->im, 0, NULL, NULL);
 	l->ret = clEnqueueWriteBuffer(l->command_queue, l->d_mem_obj, CL_TRUE, 0,
-			sizeof(int), &s->cl_iters, 0, NULL, NULL);
+			sizeof(int) * CLSTORE_SIZE, s->cl_store, 0, NULL, NULL);
 	l->program = clCreateProgramWithSource(l->context, 1, (const char **)
 			&l->source_str, (const size_t *)&l->source_size, &l->ret);
 	l->ret = clBuildProgram(l->program, 1, &l->device_id, NULL, NULL, NULL);
 	l->kernel = clCreateKernel(l->program, "mandelbrot", &l->ret);
-	l->ret = clSetKernelArg(l->kernel, 0, sizeof(cl_mem),
-			(void *)&l->a_mem_obj);
 	if (l->ret != CL_SUCCESS)
 		opencl_error();
 	go_cl_pt_2(s);
@@ -86,6 +84,8 @@ void		go_cl_pt_2(t_fctl *s)
 	t_cl	*l;
 
 	l = &s->cl;
+	l->ret = clSetKernelArg(l->kernel, 0, sizeof(cl_mem),
+			(void *)&l->a_mem_obj);
 	l->ret = clSetKernelArg(l->kernel, 1, sizeof(cl_mem),
 			(void *)&l->b_mem_obj);
 	l->ret = clSetKernelArg(l->kernel, 2, sizeof(cl_mem),
@@ -93,7 +93,7 @@ void		go_cl_pt_2(t_fctl *s)
 	l->ret = clSetKernelArg(l->kernel, 3, sizeof(cl_mem),
 			(void *)&l->d_mem_obj);
 	l->global_item_size = s->pxs;
-	l->local_item_size = 1;
+	l->local_item_size = 64;
 	l->ret = clEnqueueNDRangeKernel(l->command_queue, l->kernel, 1, NULL,
 			&l->global_item_size, &l->local_item_size, 0, NULL, NULL);
 	l->ret = clEnqueueReadBuffer(l->command_queue, l->c_mem_obj, CL_TRUE, 0,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/03 16:12:36 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/07 23:41:56 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int		deal_key(int key, t_fctl *s)
 	}
 	if (key == RES_UP || key == RES_DOWN)
 	{
-		s->cl_iters = key == RES_UP ? s->cl_iters * 2 : s->cl_iters / 2;
+		s->cl_store[0] = key == RES_UP ?
+				s->cl_store[0] * 2 : s->cl_store[0] / 2;
 		draw(s);
 	}
 	return (0);

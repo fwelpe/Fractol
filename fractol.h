@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/07 14:53:20 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/07 22:41:55 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define MAX_SOURCE_SIZE (0x100000)
 # define MALLCHECK(x) if (!x) return (0)
-# define CL_USE_DEPRECATED_OPENCL_1_2_APIS
+# define CLSTORE_SIZE 10
 
 typedef struct	s_cam
 {
@@ -69,7 +69,7 @@ typedef struct	s_fctl
 	double		*im;
 	t_cam		cam;
 	int			pxs;
-	int			cl_iters;
+	int			*cl_store;
 	t_cl		cl;
 	char		*f_name;
 }				t_fctl;
