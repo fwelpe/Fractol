@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:49:47 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/09 16:47:39 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/09 17:49:43 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		start(t_fctl *s, int ac, char **av)
 		return (0);
 	}
 	s->mlx_ptr = mlx_init();
-	s->win_ptr = mlx_new_window(s->mlx_ptr, W, H, "w!h0oy");
+	s->win_ptr = mlx_new_window(s->mlx_ptr, W, H, s->f_name);
 	if (!new_image(s))
 		return (0);
 	s->pxs = W * H;

@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/08 16:16:04 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/09 18:27:48 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void			init_cl_pt2(t_fctl *s, t_cl *l);
 void			go_cl(t_fctl *s);
 void			go_cl_pt_2(t_fctl *s);
 void			end_cl(t_fctl *s);
+int				mouse_move(int x, int y, t_fctl *s);
 
 #endif
