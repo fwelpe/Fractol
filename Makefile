@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
+#    By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/04/07 12:52:20 by cdenys-a         ###   ########.fr        #
+#    Updated: 2019/04/08 18:11:17 by fwlpe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ifeq ($(OS), Linux)
 	LMLX_FLAGS = -lXext -lX11 -lm
 	LMLX_DIR = /dev/null
 	LMLX = minilibx/libmlx.a
-	FLAGS = -g -I defines/linux/ -I /opt/AMDAPPSDK-3.0/include/
+	FLAGS = -Wall -Wextra -Werror -g -I defines/linux/ -I /opt/AMDAPPSDK-3.0/include/
 	OCL = /opt/AMDAPPSDK-3.0/lib/x86_64/sdk/libamdocl64.so
 else
 	LMLX_FLAGS = -framework OpenGL -framework AppKit

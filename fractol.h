@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/07 22:41:55 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/08 16:16:04 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define MAX_SOURCE_SIZE (0x100000)
 # define MALLCHECK(x) if (!x) return (0)
-# define CLSTORE_SIZE 10
+# define CLSTORE_SIZE 16
 
 typedef struct	s_cam
 {

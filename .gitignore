@@ -5,3 +5,4 @@ objects
 fractol
 libft/libft.a
 minilibx_macos/libmlx.a
+.vscode/ipch

@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/07 23:36:07 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/09 16:48:40 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		init_cl(t_fctl *s)
 	t_cl	*l;
 
 	l = &s->cl;
-	l->fp = fopen("mandelbrot.cl", "r");
+	l->fp = fopen(ft_strjoin(s->f_name, ".cl"), "r");
 	if (!l->fp)
 	{
 		ft_putendl_fd("Failed to load kernel.", 2);
@@ -73,7 +73,7 @@ void		go_cl(t_fctl *s)
 	l->program = clCreateProgramWithSource(l->context, 1, (const char **)
 			&l->source_str, (const size_t *)&l->source_size, &l->ret);
 	l->ret = clBuildProgram(l->program, 1, &l->device_id, NULL, NULL, NULL);
-	l->kernel = clCreateKernel(l->program, "mandelbrot", &l->ret);
+	l->kernel = clCreateKernel(l->program, s->f_name, &l->ret);
 	if (l->ret != CL_SUCCESS)
 		opencl_error();
 	go_cl_pt_2(s);

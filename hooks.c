@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/07 23:41:56 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/09 17:25:35 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ int		deal_key(int key, t_fctl *s)
 
 int		mouse(int button, int x, int y, t_fctl *s)
 {
-	(void)x;
+	// printf("1\n");
+	s->cl_store[10] = (x - W / 2) / s->cam.scale + s->cam.re_add;
+	s->cl_store[11] = (H / 2 - y) / s->cam.scale + s->cam.im_add;
+	if (ft_strequ(s->f_name, "julia"))
+		draw(s);
 	if ((button == PLUS || button == MINUS) && y >= 0)
 	{
 		zoom(button, s, x, y);

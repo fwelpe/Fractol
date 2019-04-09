@@ -29,6 +29,6 @@ __kernel void mandelbrot(__global double *A, __global double *B, __global int *C
 			return ;
 		}
 	}
-	C[i] = 0xFFFFFF;
+	C[i] = D[1];
 	// C[i] = 0xF5DEB3;
 }

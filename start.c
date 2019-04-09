@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:49:47 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/08 01:03:50 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/09 16:47:39 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void	usage(void)
 
 char	*parse_name(char **av)
 {
-	if (ft_strequ(av[1], "Mandelbrot") || ft_strequ(av[1], "mandelbrot"))
-		return ("mandelbrot.cl");
-	if (ft_strequ(av[1], "Julia") || ft_strequ(av[1], "julia"))
-		return ("julia.cl");
+	if (ft_strequ(av[1], "Mandelbrot") || ft_strequ(av[1], "mandelbrot") ||
+			ft_strequ(av[1], "mandelbrot.cl"))
+		return ("mandelbrot");
+	if (ft_strequ(av[1], "Julia") || ft_strequ(av[1], "julia") ||
+			ft_strequ(av[1], "julia.cl"))
+		return ("julia");
 	return (0);
 }
 
@@ -44,12 +46,10 @@ int		start(t_fctl *s, int ac, char **av)
 	MALLCHECK((s->re = (double *)malloc(sizeof(double) * s->pxs)));
 	MALLCHECK((s->im = (double *)malloc(sizeof(double) * s->pxs)));
 	MALLCHECK((s->cl_store = (int *)malloc(sizeof(int) * CLSTORE_SIZE)));
-	// for (int w = 0; w < 10; w++)
-	// 	s->cl_store[w] = 255;
-	ft_bzero(s->cl_store, 40);
+	ft_bzero(s->cl_store, sizeof(int) * CLSTORE_SIZE);
 	s->cl_store[0] = 512;
-	s->cl_store[1] = 0xb3ffb0;
-	s->cl_store[2] = 0xb3ffb0;
+	s->cl_store[1] = 0xffffff;
+	s->cl_store[2] = 0xff0000;
 	zero_cam(s);
 	init_cl(s);
 	return (1);

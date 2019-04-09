@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 18:42:22 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/07 21:59:30 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/09 15:55:06 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 # define RES_UP 65451
 # define RES_DOWN 65453
 # define CL_USE_DEPRECATED_OPENCL_2_0_APIS
+# define DELETE_WINDOW 17
 
 #endif
