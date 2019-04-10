@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:49:47 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/10 16:50:48 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:25:57 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int clstore_init(t_fctl *s)
 	ft_bzero(s->cl_store, sizeof(double) * CLSTORE_SIZE);
 	if (ft_strequ(s->f_name, "mandelbrot"))
 	{
-		s->cl_store[0] = 512;
+		s->cl_store[0] = 256;
 		s->cl_store[1] = 0xffffff;
 		s->cl_store[2] = 0xff0000;
 	}

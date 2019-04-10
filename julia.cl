@@ -10,7 +10,7 @@ __kernel void julia(__global double *A, __global double *B, __global int *C, __g
 	re = A[i];
 	im = B[i];
 	q = 0;
-	while (++q <= D[0])
+	while (++q <= (int)D[0])
 	{
 		j = re * re - im * im + D[10];
 		im = 2 * re * im + D[11];

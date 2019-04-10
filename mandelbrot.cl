@@ -10,7 +10,7 @@ __kernel void mandelbrot(__global double *A, __global double *B, __global int *C
 	im = 0;
 	re = 0;
 	q = 0;
-	while (++q <= D[0])
+	while (++q <= (int)D[0])
 	{
 		j = re * re - im * im + A[i];
 		im = 2 * re * im + B[i];
@@ -21,7 +21,7 @@ __kernel void mandelbrot(__global double *A, __global double *B, __global int *C
 			C[i] = 0;
 			while (++e < 4)
 			{
-				C[i] += 0xff * q / D[0];
+				C[i] += 0xff * q / (int)D[0];
 				if (e != 3)
 					C[i] = C[i] << 8;
 			}
@@ -29,6 +29,6 @@ __kernel void mandelbrot(__global double *A, __global double *B, __global int *C
 			return ;
 		}
 	}
-	C[i] = D[1];
+	C[i] = (int)D[1];
 	// C[i] = 0xF5DEB3;
 }
