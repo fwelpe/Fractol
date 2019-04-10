@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/10 18:14:15 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:33:12 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void		init_cl(t_fctl *s)
 	l->ret = clGetDeviceIDs(l->platform_id, CL_DEVICE_TYPE_ALL, 1,
 			&l->device_id, &l->ret_num_devices);
 	l->context = clCreateContext(NULL, 1, &l->device_id, NULL, NULL, &l->ret);
-	l->command_queue = clCreateCommandQueue(l->context, l->device_id,
-			0, &l->ret);
 	if (l->ret != CL_SUCCESS)
 		opencl_error();
 	init_cl_pt2(s, l);
@@ -50,6 +48,8 @@ void		init_cl(t_fctl *s)
 
 void		init_cl_pt2(t_fctl *s, t_cl *l)
 {
+	l->command_queue = clCreateCommandQueue(l->context, l->device_id,
+			0, &l->ret);
 	l->a_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
 			s->pxs * sizeof(double), NULL, &l->ret);
 	l->b_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
@@ -109,16 +109,6 @@ void		go_cl_pt_2(t_fctl *s)
 			&l->global_item_size, &l->local_item_size, 0, NULL, NULL);
 	l->ret = clEnqueueReadBuffer(l->command_queue, l->c_mem_obj, CL_TRUE, 0,
 			s->pxs * sizeof(int), s->adr, 0, NULL, NULL);
-	end_cl(s);
-	if (l->ret != CL_SUCCESS)
-		opencl_error();
-}
-
-void		end_cl(t_fctl *s)
-{
-	t_cl	*l;
-
-	l = &s->cl;
 	l->ret = clFlush(l->command_queue);
 	l->ret = clFinish(l->command_queue);
 	l->ret = clReleaseKernel(l->kernel);
