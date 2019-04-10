@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/09 18:36:24 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/10 16:42:26 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		mouse(int button, int x, int y, t_fctl *s)
 
 int		mouse_move(int x, int y, t_fctl *s)
 {
-	printf("Works!\n");
 	s->cl_store[10] = (x - W / 2) / s->cam.scale + s->cam.re_add;
 	s->cl_store[11] = (H / 2 - y) / s->cam.scale + s->cam.im_add;
 	if (ft_strequ(s->f_name, "julia"))

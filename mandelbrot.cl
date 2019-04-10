@@ -1,4 +1,4 @@
-__kernel void mandelbrot(__global double *A, __global double *B, __global int *C, __global int *D)
+__kernel void mandelbrot(__global double *A, __global double *B, __global int *C, __global double *D)
 {
     int		q;
 	double	j;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opencl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/09 16:48:40 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/10 16:40:57 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		init_cl_pt2(t_fctl *s, t_cl *l)
 	l->c_mem_obj = clCreateBuffer(l->context, CL_MEM_WRITE_ONLY,
 			s->pxs * sizeof(int), NULL, &l->ret);
 	l->d_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_WRITE,
-			sizeof(int) * CLSTORE_SIZE, NULL, &l->ret);
+			sizeof(double) * CLSTORE_SIZE, NULL, &l->ret);
 	if (l->ret != CL_SUCCESS)
 		opencl_error();
 }
@@ -69,7 +69,7 @@ void		go_cl(t_fctl *s)
 	l->ret = clEnqueueWriteBuffer(l->command_queue, l->b_mem_obj, CL_TRUE, 0,
 			s->pxs * sizeof(double), s->im, 0, NULL, NULL);
 	l->ret = clEnqueueWriteBuffer(l->command_queue, l->d_mem_obj, CL_TRUE, 0,
-			sizeof(int) * CLSTORE_SIZE, s->cl_store, 0, NULL, NULL);
+			sizeof(double) * CLSTORE_SIZE, s->cl_store, 0, NULL, NULL);
 	l->program = clCreateProgramWithSource(l->context, 1, (const char **)
 			&l->source_str, (const size_t *)&l->source_size, &l->ret);
 	l->ret = clBuildProgram(l->program, 1, &l->device_id, NULL, NULL, NULL);
