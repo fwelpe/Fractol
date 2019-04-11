@@ -25,7 +25,6 @@ __kernel void julia(__global double *A, __global double *B, __global int *C, __g
 				if (e != 3)
 					C[i] = C[i] << 8;
 			}
-			C[i] %= 0xFFFFFF;
 			return ;
 		}
 	}
