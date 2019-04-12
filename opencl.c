@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opencl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/10 18:33:12 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:15:54 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void		go_cl(t_fctl *s)
 	t_cl	*l;
 
 	l = &s->cl;
+	l->ret = clReleaseMemObject(l->a_mem_obj);
+	l->ret = clReleaseMemObject(l->b_mem_obj);
+	l->ret = clReleaseMemObject(l->c_mem_obj);
 	l->a_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
 			s->pxs * sizeof(double), NULL, &l->ret);
 	l->b_mem_obj = clCreateBuffer(l->context, CL_MEM_READ_ONLY,
@@ -112,9 +115,6 @@ void		go_cl_pt_2(t_fctl *s)
 	l->ret = clFlush(l->command_queue);
 	l->ret = clFinish(l->command_queue);
 	l->ret = clReleaseKernel(l->kernel);
-	l->ret = clReleaseMemObject(l->a_mem_obj);
-	l->ret = clReleaseMemObject(l->b_mem_obj);
-	l->ret = clReleaseMemObject(l->c_mem_obj);
 	if (l->ret != CL_SUCCESS)
 		opencl_error();
 }

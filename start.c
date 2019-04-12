@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:49:47 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/10 19:38:12 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:20:25 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ char	*parse_name(char **av)
 	if (ft_strequ(av[1], "Julia") || ft_strequ(av[1], "julia") ||
 			ft_strequ(av[1], "julia.cl"))
 		return ("julia");
+	if (ft_strequ(av[1], "Newton") || ft_strequ(av[1], "newton") ||
+			ft_strequ(av[1], "newton.cl"))
+		return ("newton");
 	return (0);
 }
 
@@ -41,6 +44,12 @@ int clstore_init(t_fctl *s)
 		s->cl_store[2] = 0xff0000;
 	}
 	if (ft_strequ(s->f_name, "julia"))
+	{
+		s->cl_store[0] = 32;
+		s->cl_store[1] = 0xffffff;
+		s->cl_store[2] = 0xff0000;
+	}
+	if (ft_strequ(s->f_name, "newton"))
 	{
 		s->cl_store[0] = 32;
 		s->cl_store[1] = 0xffffff;
