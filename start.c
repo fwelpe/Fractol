@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:49:47 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/12 18:20:25 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/12 22:52:09 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	usage(void)
 {
 		char *s;
 
-		s = "Usage: ./fractol [mandelbrot / julia / other shit]";
+		s = "Usage: ./fractol [mandelbrot / julia / qube]";
 		ft_putendl_fd(s, 2);
 }
 
@@ -28,9 +28,9 @@ char	*parse_name(char **av)
 	if (ft_strequ(av[1], "Julia") || ft_strequ(av[1], "julia") ||
 			ft_strequ(av[1], "julia.cl"))
 		return ("julia");
-	if (ft_strequ(av[1], "Newton") || ft_strequ(av[1], "newton") ||
-			ft_strequ(av[1], "newton.cl"))
-		return ("newton");
+	if (ft_strequ(av[1], "Qube") || ft_strequ(av[1], "qube") ||
+			ft_strequ(av[1], "qube.cl"))
+		return ("qube");
 	return (0);
 }
 
@@ -39,22 +39,30 @@ int clstore_init(t_fctl *s)
 	ft_bzero(s->cl_store, sizeof(double) * CLSTORE_SIZE);
 	if (ft_strequ(s->f_name, "mandelbrot"))
 	{
-		s->cl_store[0] = 128;
 		s->cl_store[1] = 0xffffff;
 		s->cl_store[2] = 0xff0000;
 	}
 	if (ft_strequ(s->f_name, "julia"))
 	{
-		s->cl_store[0] = 32;
 		s->cl_store[1] = 0xffffff;
 		s->cl_store[2] = 0xff0000;
 	}
-	if (ft_strequ(s->f_name, "newton"))
+	if (ft_strequ(s->f_name, "qube"))
 	{
-		s->cl_store[0] = 32;
 		s->cl_store[1] = 0xffffff;
 		s->cl_store[2] = 0xff0000;
 	}
+	return (0);
+}
+
+int clstore_reset_precision(t_fctl *s)
+{
+	if (ft_strequ(s->f_name, "mandelbrot"))
+		s->cl_store[0] = 128;
+	if (ft_strequ(s->f_name, "julia"))
+		s->cl_store[0] = 32;
+	if (ft_strequ(s->f_name, "qube"))
+		s->cl_store[0] = 16;
 	return (0);
 }
 

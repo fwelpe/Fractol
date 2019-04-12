@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:34:44 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/10 19:13:00 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/12 22:21:48 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void			init_cl_pt2(t_fctl *s, t_cl *l);
 void			go_cl(t_fctl *s);
 void			go_cl_pt_2(t_fctl *s);
 int				mouse_move(int x, int y, t_fctl *s);
+int				clstore_reset_precision(t_fctl *s);
 
 #endif
