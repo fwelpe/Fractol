@@ -28,6 +28,5 @@ __kernel void julia(__global double *A, __global double *B, __global int *C, __g
 			return ;
 		}
 	}
-	C[i] = (int)D[1];
-	// C[i] = 0xF5DEB3;
+	C[i] = D[1];
 }
