@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/12 18:19:55 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/04/13 17:59:22 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		deal_key(int key, t_fctl *s)
 {
-	(void)s;
 	if (key == ESC)
 		exit(0);
 	if (key == SPACE)
@@ -22,12 +21,15 @@ int		deal_key(int key, t_fctl *s)
 		zero_cam(s);
 		draw(s);
 	}
-	if (key == RES_UP || key == RES_DOWN)
-	{
-		s->cl_store[0] = key == RES_UP ?
-				s->cl_store[0] * 2 : s->cl_store[0] / 2;
-		draw(s);
-	}
+	if (key == CHANGE_COLOR)
+		s->cl_store[5] = s->cl_store[5] == 0 ? 1 : 0;
+	if (key == RES_UP)
+		if (s->cl_store[0] <= 512)
+			s->cl_store[0] *= 2;
+	if (key == RES_DOWN)
+		if (s->cl_store[0] >= 8)
+			s->cl_store[0] /= 2;
+	draw(s);
 	return (0);
 }
 
@@ -38,6 +40,23 @@ int		mouse(int button, int x, int y, t_fctl *s)
 		zoom(button, s, x, y);
 		draw(s);
 	}
+	return (0);
+}
+
+int		arrows_move_hook(int btn, t_fctl *s)
+{
+	double step;
+
+	step = 35 / s->cam.scale;
+	if (btn == UP)
+		s->cam.im_add += step;
+	if (btn == DOWN)
+		s->cam.im_add -= step;
+	if (btn == LEFT)
+		s->cam.re_add -= step;
+	if (btn == RIGHT)
+		s->cam.re_add += step;
+	draw(s);
 	return (0);
 }
 

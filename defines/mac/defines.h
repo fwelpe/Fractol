@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 18:42:37 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/04/10 19:45:01 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/13 16:47:36 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,10 @@
 # define RES_UP 69
 # define RES_DOWN 78
 # define DELETE_WINDOW 17
+# define LEFT 124
+# define RIGHT 123
+# define UP 125
+# define DOWN 126
+# define CHANGE_COLOR 12
 
 #endif
