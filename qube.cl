@@ -14,7 +14,7 @@ __kernel void qube(__global double *A, __global double *B, __global int *C, __gl
 	q = 0;
 	while (++q <= (int)D[0])
 	{
-		j = re * re * re - 3 * re * im * im - 1;
+		j = re * re * re - 3 * re * im * im + 0.5;
 		im = 3 * re * re * im - im * im * im;
 		re = j;
 		if ((re * re + im * im) > 4)

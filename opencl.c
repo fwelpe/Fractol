@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opencl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:15:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/04/13 15:53:19 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/04/16 09:52:21 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		init_cl(t_fctl *s)
 	l->platform_id = NULL;
 	l->device_id = NULL;
 	l->ret = clGetPlatformIDs(1, &l->platform_id, &l->ret_num_platforms);
-	l->ret = clGetDeviceIDs(l->platform_id, CL_DEVICE_TYPE_GPU, 1,
+	l->ret = clGetDeviceIDs(l->platform_id, CL_DEVICE_TYPE_ALL, 1,
 			&l->device_id, &l->ret_num_devices);
 	l->context = clCreateContext(NULL, 1, &l->device_id, NULL, NULL, &l->ret);
 	if (l->ret != CL_SUCCESS)
